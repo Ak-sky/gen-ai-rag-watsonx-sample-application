@@ -29,10 +29,20 @@ console.log(`WA_INTEGRATION_ID:${process.env.WA_INTEGRATION_ID}`);
 
 app.use(helmet({
    contentSecurityPolicy: {
-      useDefaults: true,
+      useDefaults: false,
       directives: {
+        "default-src": ["'self'", `integrations.${process.env.WA_REGION}.assistant.watson.appdomain.cloud`],
         "script-src": ["'self'", "web-chat.global.assistant.watson.appdomain.cloud"],
-        "default-src": ["'self'", `integrations.${process.env.WA_REGION}.assistant.watson.appdomain.cloud`]
+        "script-src-attr": ["'none'"],
+        "style-src": ["'self'", "'unsafe-inline'"],        
+        "font-src": ["'self'", "data:"],                    
+        "img-src": ["'self'", "data:"],
+        "object-src": ["'none'"],
+        "base-uri": ["'self'"],
+        "form-action": ["'self'"],
+        "frame-ancestors": ["'self'"],
+        "upgrade-insecure-requests": [],
+        "block-all-mixed-content": [],
       },
       reportOnly: false
    }
