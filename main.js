@@ -34,9 +34,11 @@ app.use(helmet({
         "script-src": ["'self'", "web-chat.global.assistant.watson.appdomain.cloud"],
         "default-src": ["'self'", `integrations.${process.env.WA_REGION}.assistant.watson.appdomain.cloud`]
       },
-      reportOnly: true
+      reportOnly: false
    }
 }));
+
+app.set('trust proxy', 1);
 
 app.use(session({ 
    secret: '32732dwjdw238fgs823ow', saveUninitialized: true, resave: true,
@@ -61,9 +63,6 @@ app.get("/assistant-integration.json", (req, resp, next) => {
 
 var http = require('http');
 
-http.createServer(app).listen(process.env.APPLICATION_PORT,function () {
+http.createServer(app).listen(process.env.APPLICATION_PORT, function () {
    console.log(`${process.env.APPLICATION_NAME} is listening on port ${process.env.APPLICATION_PORT}`);
-
 });
-
-
